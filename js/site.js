@@ -192,6 +192,8 @@
         var p = (box.top + box.height / 2 - vh / 2) / vh;      // about -1 .. 1 while the block crosses the screen
         if (el.hasAttribute("data-par")) el.style.transform = "translateY(" + (p * -5).toFixed(2) + "%)";
         else el.style.translate = "0 " + (p * parseFloat(el.dataset.speed) * 240).toFixed(1) + "px";
+        // the brand pieces also turn as the section passes, each its own way (index.src.html data-rot / data-turn)
+        if (el.dataset.turn) el.style.rotate = (parseFloat(el.dataset.rot) + p * parseFloat(el.dataset.turn)).toFixed(1) + "deg";
       });
     };
     addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
