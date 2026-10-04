@@ -395,9 +395,9 @@ main:focus{outline:none}
 /* breath: the logo's three pieces drift around the word with the scroll */
 .breath{position:relative}
 .float{position:absolute;inset:0;pointer-events:none}
-.fp{position:absolute;width:clamp(80px, 10vw, 200px);height:auto;fill:var(--accent);opacity:.9}
+.fp{position:absolute;width:clamp(110px, 14vw, 280px);height:auto;fill:var(--accent);opacity:.9}
 .fp1{inset-inline-start:8%;top:14%;rotate:-14deg}
-.fp2{inset-inline-end:12%;top:22%;width:clamp(40px, 4vw, 88px);fill:var(--ink);opacity:.5}
+.fp2{inset-inline-end:14%;top:18%;width:clamp(56px, 6vw, 120px);fill:var(--ink);opacity:.7}
 .fp3{inset-inline-end:16%;bottom:10%;rotate:18deg}
 /* tiles: the picture moves inside its frame */
 .tile-media img[data-par]{inset:-6% 0;height:112%}
