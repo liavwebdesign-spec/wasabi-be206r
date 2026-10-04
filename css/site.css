@@ -408,6 +408,9 @@ main:focus{outline:none}
 .band-set{display:flex;align-items:center;gap:clamp(24px, 3vw, 56px);list-style:none;margin:0;padding:0 clamp(12px, 1.5vw, 28px);white-space:nowrap}
 .band-set li{font-size:clamp(28px, 3vw + 0.5rem, 72px);font-weight:500;letter-spacing:-.02em;color:var(--ink)}
 .band-set .mk-sep svg{width:clamp(28px, 2.4vw, 48px);height:auto;fill:var(--accent)}
+/* the clients' own logos, one colour (the text grey) so nine brands read as one row; --s balances wide wordmarks against compact marks */
+.band-set .lg{display:flex;align-items:center}
+.band-set .lg img{display:block;width:auto;height:calc(clamp(34px, 2.8vw + 0.5rem, 68px) * var(--s, 1));filter:brightness(0) invert(.88)}
 @keyframes band{to{transform:translateX(-50%)}}
 /* breath: the logo's three pieces drift around the word with the scroll */
 .breath{position:relative}
@@ -476,7 +479,8 @@ main:focus{outline:none}
 }
 .fsm-link:focus-visible{outline:none}
 .fsm-link:focus-visible .fsm-w{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:.12em}
-.fsm-peek{grid-column:2;grid-row:2;align-self:center;margin:0;position:relative;aspect-ratio:4 / 3;border-radius:12px;overflow:hidden;background:var(--surface-2);
+/* the peek has no frame of its own: the brand loops are drawn on the ground colour, and lighten lets the grained ground show through them */
+.fsm-peek{grid-column:2;grid-row:2;align-self:center;margin:0;position:relative;aspect-ratio:4 / 3;overflow:hidden;mix-blend-mode:lighten;
   opacity:0;transform:scale(.92) rotate(-2deg);transition:opacity .4s var(--ease),transform .6s var(--ease)}
 .fsm.open .fsm-peek{opacity:1;transform:none;transition-delay:.55s}
 .fsm-peek img,.fsm-peek video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
