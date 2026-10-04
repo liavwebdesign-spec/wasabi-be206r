@@ -114,17 +114,21 @@ p{margin:0}
 @keyframes mk-r{0%,78%,100%{translate:0 0;rotate:0deg}84%,90%{translate:14% -10%;rotate:8deg}}
 @keyframes mk-c{0%,78%,100%{translate:0 0}84%,90%{translate:0 12%}}
 .a11y-still .loop .mk-l,.a11y-still .loop .mk-r,.a11y-still .loop .mk-c{animation:none}
-.hd nav{display:flex;gap:4px;margin-inline-start:auto}
-.hlink{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;font-size:15px;font-weight:500;text-decoration:none;color:var(--ink);opacity:.82;
-  transition:opacity .15s var(--ease),background-color .18s var(--ease)}
+.hd .hd-cta{margin-inline-start:auto}
 .hd .btn{min-height:44px;border-radius:999px;font-size:15px;padding:0 20px}
-@media (hover:hover) and (pointer:fine){.hlink:hover{opacity:1;background:rgba(225,225,225,.08)}}
-.burger{display:none;width:44px;height:44px;border:0;border-radius:999px;background:rgba(225,225,225,.1);color:var(--ink);place-content:center;gap:4px;cursor:pointer;margin-inline-start:auto}
-.burger i{display:block;width:18px;height:2px;background:currentColor;border-radius:2px}
+/* one "Menu" button at every size: three links do not need a nav bar, and the menu itself is the show (Liav, 4.10) */
+/* its own dark glass: over the bright reel at the top of a phone, a light wash left the word unreadable */
+.burger{display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:4px;padding-inline-start:18px;border:0;border-radius:999px;background:rgba(31,22,21,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 0 0 1px var(--line);
+  color:var(--ink);font:500 15px/1 "Satoshi",sans-serif;cursor:pointer;margin-inline-start:8px;transition:background-color .18s var(--ease)}
+.burger-i{position:relative;width:36px;height:36px;border-radius:50%;background:var(--ink)}
+.burger-i i{position:absolute;inset-inline:10px;height:2px;border-radius:2px;background:var(--bg);transition:transform .3s var(--ease)}
+.burger-i i:first-child{top:14px}
+.burger-i i:last-child{top:20px}
+@media (hover:hover) and (pointer:fine){.burger:hover{background:rgba(31,22,21,.8)}.burger:hover .burger-i i:first-child{transform:translateY(-1px)}.burger:hover .burger-i i:last-child{transform:translateY(1px)}}
 @media (max-width:767px){
   .hd{padding-inline-start:16px}
-  .hd nav,.hd .hd-cta{display:none}
-  .burger{display:grid}
+  .hd .hd-cta{display:none}
+  .burger{margin-inline-start:auto}
   .logo svg{height:24px}
 }
 
@@ -194,7 +198,8 @@ p{margin:0}
   /* the reel's own frames often end in a dark ground strip (bottom 4% of the frame): the fade is done before it, or the strip reads as a cut */
   .hero-media{position:relative;inset:auto;flex:1 1 auto;min-height:160px;margin-inline:calc(var(--gutter) * -1);margin-bottom:24px;
     -webkit-mask-image:linear-gradient(to bottom,#000 30%,rgba(0,0,0,.72) 48%,rgba(0,0,0,.38) 64%,rgba(0,0,0,.12) 80%,transparent 93%);mask-image:linear-gradient(to bottom,#000 30%,rgba(0,0,0,.72) 48%,rgba(0,0,0,.38) 64%,rgba(0,0,0,.12) 80%,transparent 93%)}
-  .hero-scrim{background:linear-gradient(to bottom,rgba(31,22,21,.45) 0%,rgba(31,22,21,0) 24%)}
+  /* the logo sits on the reel's top edge: deep enough there for the white wordmark on a bright frame */
+  .hero-scrim{background:linear-gradient(to bottom,rgba(31,22,21,.7) 0%,rgba(31,22,21,.35) 16%,rgba(31,22,21,0) 30%)}
   .hero-cta .btn{flex:1 1 0;padding:0 12px;min-width:0;gap:8px;font-size:16px;white-space:nowrap}
   .pp{inset-block-start:calc(var(--header-h) + 8px);inset-block-end:auto}
 }
@@ -283,6 +288,11 @@ main > section{padding:var(--sec) var(--gutter)}
 .about .side .mk-big{width:clamp(120px, 12vw, 240px);height:auto;fill:var(--accent);overflow:visible}
 .about .text .spice{color:inherit}
 .about .text .w{display:inline}
+/* the Formiga words get a kick as the paint reaches them: a small hop and swell that peaks halfway and lands (scroll.js sets --kick 0..1) */
+.about .text .spice{--kick:0;scale:calc(1 + .72 * var(--kick) * (1 - var(--kick)));translate:0 calc(-.5em * var(--kick) * (1 - var(--kick)))}
+/* spice: split into letters by scroll.js; the outer span takes the toss, the inner one the sizzle and the hover burst */
+.giant .ch,.giant .ci{display:inline-block}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .about .text{font-size:var(--fs-about);line-height:1.25;letter-spacing:-.015em;font-weight:500;max-width:30ch;color:var(--ink)}
 @media (max-width:767px){.about{grid-template-columns:minmax(0, 1fr)}.about .side{grid-auto-flow:column;justify-content:space-between;align-items:center}}
 
@@ -433,3 +443,55 @@ main:focus{outline:none}
   .js .mk-big:not(.on) .pc{transform:none;opacity:1}
 }
 .a11y-still .band-track{animation:none}
+
+/* ---------- full-screen menu · hd4's menu inside the hd9 header ----------
+   The ground opens as a circle from the Menu button, the links are the page's biggest type, and a hovered link
+   wakes a work loop beside it (the same idea as the tiles, b19). On a phone: the same sheet, without the loop */
+.fsm .dw-scrim{display:none}
+.fsm .dw-panel{inset:0;width:auto;transform:none;display:grid;grid-template-columns:minmax(0, 7fr) minmax(0, 5fr);grid-template-rows:auto 1fr auto;column-gap:var(--gap-m);
+  padding:16px var(--gutter) clamp(24px, 4vh, 48px);background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  clip-path:circle(0px at var(--cx, calc(100% - 64px)) var(--cy, 40px));transition:clip-path .8s var(--ease-move)}
+.fsm.open .dw-panel{transform:none;clip-path:circle(150vmax at var(--cx, calc(100% - 64px)) var(--cy, 40px))}
+.fsm{transition-delay:.8s}
+.fsm.open{transition-delay:0s}
+.fsm-top{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;min-height:64px}
+.fsm .dw-close{width:auto;gap:12px;padding:4px;padding-inline-start:18px;font:500 15px/1 "Satoshi",sans-serif;background:rgba(225,225,225,.1);display:inline-flex;align-items:center}
+.fsm .dw-close svg{box-sizing:content-box;width:20px;height:20px;padding:8px;border-radius:50%;background:var(--accent);color:var(--accent-ink)}
+.fsm-list{list-style:none;margin:0;padding:0;align-self:center;display:grid;gap:clamp(0px, .6vh, 8px)}
+.fsm-list li{overflow:hidden}
+.fsm-link{display:flex;align-items:baseline;gap:clamp(12px, 1.6vw, 32px);text-decoration:none;color:var(--ink);padding-block:.04em}
+.fsm-n{font-size:clamp(14px, .5vw + .6rem, 18px);font-weight:500;color:var(--muted);min-width:2.4ch;font-variant-numeric:tabular-nums;transition:color .25s var(--ease)}
+.fsm-w{display:inline-block;font-size:clamp(64px, 8.4vw, 168px);line-height:1.02;font-weight:500;letter-spacing:-.04em;
+  transform:translateY(105%);transition:transform .2s var(--ease),color .25s var(--ease)}
+.fsm.open .fsm-w{transform:none;transition:transform .9s var(--ease-move) calc(.32s + var(--i) * 70ms),color .25s var(--ease)}
+.fsm-list li:nth-child(2) .fsm-w{--i:1}
+.fsm-list li:nth-child(3) .fsm-w{--i:2}
+.fsm-list li:nth-child(4) .fsm-w{--i:3}
+.fsm-hot{font-family:"formiga","Satoshi",sans-serif;font-weight:800;color:var(--spice);display:inline-block;transform:skewX(-10deg);padding-inline-end:.08em}
+/* hover: the hovered word stays lit and the others step back */
+@media (hover:hover) and (pointer:fine){
+  .fsm-list:hover .fsm-w{color:rgba(225,225,225,.3)}
+  .fsm-list .fsm-link:hover .fsm-w{color:var(--ink)}
+  .fsm-link:hover .fsm-n{color:var(--accent)}
+}
+.fsm-link:focus-visible{outline:none}
+.fsm-link:focus-visible .fsm-w{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:.12em}
+.fsm-peek{grid-column:2;grid-row:2;align-self:center;margin:0;position:relative;aspect-ratio:4 / 3;border-radius:12px;overflow:hidden;background:var(--surface-2);
+  opacity:0;transform:scale(.92) rotate(-2deg);transition:opacity .4s var(--ease),transform .6s var(--ease)}
+.fsm.open .fsm-peek{opacity:1;transform:none;transition-delay:.55s}
+.fsm-peek img,.fsm-peek video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fsm-peek video{opacity:0;transition:opacity .3s var(--ease)}
+.fsm-peek video.on{opacity:1}
+.fsm-foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 32px;padding-top:16px;border-top:1px solid var(--line);font-size:15px;color:var(--muted);
+  opacity:0;transition:opacity .4s var(--ease)}
+.fsm.open .fsm-foot{opacity:1;transition-delay:.7s}
+.fsm-foot a{color:var(--ink);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+@media (max-width:1023px){
+  .fsm .dw-panel{grid-template-columns:minmax(0, 1fr)}
+  .fsm-peek{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .fsm .dw-panel,.fsm.open .dw-panel{clip-path:none;transition:none}
+  .fsm-w,.fsm.open .fsm-w{transform:none;transition:none}
+  .fsm-peek,.fsm-foot{opacity:1;transform:none;transition:none}
+}

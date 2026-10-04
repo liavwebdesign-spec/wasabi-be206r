@@ -75,6 +75,29 @@
   var menuEl = document.getElementById("dw-menu"), talkEl = document.getElementById("dw-talk");
   var setMenu = menuEl ? drawer(menuEl, document.querySelector(".burger")) : null;
   var setTalk = talkEl ? drawer(talkEl, null) : null;
+  /* the full-screen menu opens as a circle from the Menu button, and a hovered link wakes its loop in the peek frame */
+  var burger = document.querySelector(".burger");
+  if (menuEl && burger) {
+    var mp = menuEl.querySelector(".dw-panel");
+    burger.addEventListener("click", function () {
+      var r = burger.getBoundingClientRect();
+      mp.style.setProperty("--cx", (r.left + r.width / 2) + "px"); mp.style.setProperty("--cy", (r.top + r.height / 2) + "px");
+    }, true);
+    var peek = menuEl.querySelector(".fsm-peek");
+    if (peek && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      var pImg = peek.querySelector("img"), pVid = peek.querySelector("video"), cur = "";
+      menuEl.querySelectorAll("[data-loop]").forEach(function (a) {
+        var wake = function () {
+          var k = a.dataset.loop; if (k === cur) return; cur = k;
+          pImg.src = "media/" + k + ".jpg"; pVid.classList.remove("on");
+          if (reduce || still) return;
+          pVid.src = "media/" + k + ".mp4";
+          var pr = pVid.play(); if (pr && pr.then) pr.then(function () { pVid.classList.add("on"); }, function () {});
+        };
+        a.addEventListener("mouseenter", wake); a.addEventListener("focus", wake);
+      });
+    }
+  }
   // "Let's talk" opens the form at the top of the page (meeting 04:54: a form at the top and at the bottom).
   // Without JS it is a plain link to the form at the bottom.
   document.querySelectorAll("[data-talk]").forEach(function (a) {
