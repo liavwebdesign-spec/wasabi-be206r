@@ -90,6 +90,7 @@
         var wake = function () {
           var k = a.dataset.loop; if (k === cur) return; cur = k;
           pImg.src = "media/" + k + ".jpg"; pVid.classList.remove("on");
+          peek.classList.toggle("is-reel", k.indexOf("reel") === 0);  // the reel is a real video: no lighten blend on it
           if (reduce || still) return;
           pVid.src = "media/" + k + ".mp4";
           var pr = pVid.play(); if (pr && pr.then) pr.then(function () { pVid.classList.add("on"); }, function () {});

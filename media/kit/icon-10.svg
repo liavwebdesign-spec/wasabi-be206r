@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186.37 244.59">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff2b2b;
+      }
+
+      .cls-2 {
+        fill: #92ba00;
+      }
+    </style>
+  </defs>
+  <g id="BLack_BG" data-name="BLack BG">
+    <g>
+      <polygon class="cls-1" points="97.38 47.47 57.4 144.82 51.25 187.96 45.95 190.42 44.5 162.87 0 229.23 13.4 244.59 114.04 181.74 161.52 88.44 97.38 47.47"/>
+      <polygon class="cls-2" points="165.82 79.05 155.88 33.6 186.37 11.63 172.02 0 143.94 29.21 103.17 40.95 165.82 79.05"/>
+    </g>
+  </g>
+</svg>
