@@ -591,3 +591,13 @@ main:focus{outline:none}
 .fsm-foot{grid-row:3}
 /* no shrink on scroll: the open menu draws the same bar at full size, so the two states stay identical */
 .hd.is-scrolled{--hs:1}
+
+/* the Text Box's missing corner as a mark of its own (Klil, WhatsApp 5.10): a small right triangle that sits by a short line of text.
+   Used in three places only: the section labels, the process numbers, and the menu numbers (lime, red on hover) */
+.label::before,.fsm-n::before{content:"";flex:none;width:.9em;height:.9em;background:var(--accent);clip-path:polygon(100% 0,100% 100%,0 100%)}
+.label{gap:10px}
+.step .n i{width:.26em;height:.26em;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.fsm-n{display:inline-flex;align-items:center;gap:.5em}
+.fsm-n::before{transition:background-color .25s var(--ease)}
+@media (hover:hover) and (pointer:fine){.fsm-link:hover .fsm-n::before,.fsm-link:focus-visible .fsm-n::before{background:var(--spice)}}
+.a11y-contrast .label::before{background:var(--ink)}
