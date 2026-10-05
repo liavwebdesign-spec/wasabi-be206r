@@ -601,3 +601,8 @@ main:focus{outline:none}
 .fsm-n::before{transition:background-color .25s var(--ease)}
 @media (hover:hover) and (pointer:fine){.fsm-link:hover .fsm-n::before,.fsm-link:focus-visible .fsm-n::before{background:var(--spice)}}
 .a11y-contrast .label::before{background:var(--ink)}
+
+/* Liav 5.10: the Text Box keeps Klil's shape but takes the action colour. Lime is what you press, red is what you read
+   (HEAT, spice, recipe): a red button next to HEAT split the eye, and next to the form errors it read as an error */
+.btn-box{background:var(--accent);color:var(--accent-ink)}
+@media (hover:hover) and (pointer:fine){.btn-box:hover{background:#C2EE1F}}
