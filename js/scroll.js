@@ -51,24 +51,13 @@
   }, function (ctx) {
     tls = [];
     var cleanup;
-    /* process */
+    /* process: the four steps come in together as the row arrives, then the rule under the numbers fills (Klil 4.10:
+       step by step broke the scroll). A short entrance, not a scrub */
     if (steps.length) {
-      if (ctx.conditions.wide) {
-        // one rail across the row: step i lights up, then its rule fills toward step i + 1
-        var tl = gsap.timeline({ scrollTrigger: { trigger: ".steps", start: "top 80%", end: "bottom 52%", scrub: .6 } });
-        steps.forEach(function (s, i) {
-          tl.fromTo(s.children, { opacity: .25, y: 14 }, { opacity: 1, y: 0, duration: .4, stagger: .06, ease: "none" }, i)
-            .fromTo(s, { "--p": 0 }, { "--p": 1, duration: .9, ease: "none" }, i + .1);
-        });
-        tls.push(tl);
-      } else {
-        steps.forEach(function (s) {
-          var t = gsap.timeline({ scrollTrigger: { trigger: s, start: "top 86%", end: "top 52%", scrub: .6 } });
-          t.fromTo(s.children, { opacity: .25, y: 14 }, { opacity: 1, y: 0, duration: .5, stagger: .08, ease: "none" }, 0)
-           .fromTo(s, { "--p": 0 }, { "--p": 1, duration: 1, ease: "none" }, .1);
-          tls.push(t);
-        });
-      }
+      var tp = gsap.timeline({ scrollTrigger: { trigger: ".steps", start: "top 82%", toggleActions: "play none none none" } });
+      tp.fromTo(steps, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .7, stagger: .08, ease: "power3.out" })
+        .fromTo(steps, { "--p": 0 }, { "--p": 1, duration: .6, stagger: .08, ease: "power2.out" }, .3);
+      tls.push(tp);
     }
     /* about: stagger is a share of the scroll distance here, not milliseconds (moves.md G4).
        The Formiga words (kick, spicy, heat) turn the brand red as the paint reaches them, with a hop (--kick in site.css) */
